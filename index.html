@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moe Kyaw Aung | 2025 Developer Portfolio</title>
+    <meta name="description" content="Moe Kyaw Aung - Next-Gen Fullstack Developer | AI | WebGL | 100+ Projects">
+    
+    <!-- Modern Stack -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --accent-1: #00d4ff;
+            --accent-2: #ff00d4;
+            --accent-3: #00ff88;
+            --text-primary: #f8f9fa;
+            --glass-bg: rgba(255,255,255,0.03);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+        
+        /* WebGL Canvas */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--accent-1), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+        
+        /* Glass Morphism 2025 */
+        .glass-2025 {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 
+                0 25px 45px rgba(0,0,0,0.3),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+        
+        /* Morphing Animation */
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+        }
+        .morphing { animation: morph 8s ease-in-out infinite both; }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 50%, var(--accent-3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Infinite Scroll Gradient */
+        .infinite-gradient {
+            background: linear-gradient(-45deg, var(--accent-1), var(--accent-2), var(--accent-3), #0a0a0f);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- WebGL Background -->
+    <canvas id="webgl-canvas"></canvas>
+    
+    <!-- Floating Particles Container -->
+    <div id="particles-container"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-8 left-8 z-50 glass-2025 px-8 py-6 rounded-3xl w-fit max-w-sm backdrop-blur-xl">
+        <div class="flex items-center space-x-6">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-1 to-accent-2 flex items-center justify-center">
+                <i class="fas fa-user-astronaut text-black text-xl"></i>
+            </div>
+            <div>
+                <div class="text-sm font-light opacity-75 tracking-wider uppercase">Moe Kyaw Aung</div>
+                <div class="text-lg font-black gradient-text">Fullstack Dev</div>
+            </div>
+        </div>
+        <div class="flex flex-col space-y-4 mt-8 pl-4 border-l-2 border-white/20">
+            <a href="#home" class="nav-link group">
+                <span class="nav-text">01 Home</span>
+                <span class="nav-line group-hover:w-full transition-all bg-gradient-to-r from-accent-1 to-accent-2 h-px block w-0"></span>
+            </a>
+            <a href="#skills" class="nav-link group">
+                <span class="nav-text">02 Skills</span>
+                <span class="nav-line group-hover:w-full transition-all bg-gradient-to-r from-accent-1 to-accent-2 h-px block w-0"></span>
+            </a>
+            <a href="#projects" class="nav-link group">
+                <span class="nav-text">03 Projects</span>
+                <span class="nav-line group-hover:w-full transition-all bg-gradient-to-r from-accent-1 to-accent-2 h-px block w-0"></span>
+            </a>
+            <a href="#github" class="nav-link group">
+                <span class="nav-text">04 GitHub</span>
+                <span class="nav-line group-hover:w-full transition-all bg-gradient-to-r from-accent-1 to-accent-2 h-px block w-0"></span>
+            </a>
+            <a href="#contact" class="nav-link group">
+                <span class="nav-text">05 Contact</span>
+                <span class="nav-line group-hover:w-full transition-all bg-gradient-to-r from-accent-1 to-accent-2 h-px block w-0"></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-8 pt-24 relative overflow-hidden">
+        <div class="text-center max-w-6xl mx-auto space-y-12 reveal" data-delay="0">
+            <!-- Morphing Blob -->
+            <div class="morphing w-96 h-96 mx-auto mb-16 glass-2025 rounded-full flex items-center justify-center p-12 relative overflow-hidden">
+                <img src="https://res.cloudinary.com/dye5qpwii/image/upload/w_300,h_300,c_fill,r_max/v1778527878/IMG_20260430_053105_uef0yr.png" 
+                     alt="Moe Kyaw Aung" class="w-64 h-64 rounded-3xl object-cover absolute z-10 shadow-2xl ring-4 ring-accent-1/30">
+                <div class="absolute inset-0 bg-gradient-to-r from-accent-1/20 via-accent-2/20 to-accent-3/20 animate-pulse"></div>
+            </div>
+            
+            <div class="space-y-8">
+                <h1 class="text-7xl md:text-9xl font-black leading-none gradient-text">
+                    MOE KYAW AUNG
+                </h1>
+                <div class="text-2xl md:text-4xl font-light tracking-wider opacity-90">
+                    <span>Next-Gen</span> <span class="gradient-text font-black">Fullstack</span> <span>Developer</span>
+                </div>
+                <p class="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed opacity-80 font-light">
+                    Crafting 100+ AI-powered apps on Lovable | 25+ GitHub Portfolios | 
+                    Myanmar 🇲🇲 → Global 🚀
+                </p>
+                <div class="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+                    <a href="https://github.com/dev-moe-kyawaung" target="_blank" 
+                       class="group glass-2025 px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-lg flex items-center justify-center hover:scale-105 transition-all duration-500 shadow-2xl hover:shadow-accent-1/50">
+                        <i class="fab fa-github text-xl mr-3 group-hover:-rotate-12 transition-all"></i>
+                        GitHub Repos
+                    </a>
+                    <a href="https://moekyawaung-dev.lovable.app/" target="_blank" 
+                       class="group glass-2025 px-12 py-6 rounded-3xl font-black uppercase tracking-widest text-lg border-2 border-accent-1/50 flex items-center justify-center hover:scale-105 transition-all duration-500 hover:bg-accent-1/10 shadow-2xl">
+                        <i class="fas fa-rocket text-xl mr-3 group-hover:-rotate-12 transition-all"></i>
+                        Live Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Grid -->
+    <section id="skills" class="py-40 px-8 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-32 reveal" data-delay="200">
+                <h2 class="text-6xl md:text-8xl font-black mb-8 gradient-text uppercase tracking-widest">
+                    Tech Arsenal
+                </h2>
+                <div class="w-32 h-1 mx-auto bg-gradient-to-r from-accent-1 to-accent-3 rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div class="glass-2025 p-12 rounded-4xl hover:scale-105 transition-all duration-700 group cursor-grab active:cursor-grabbing reveal" data-delay="400">
+                    <div class="text-6xl mb-8 group-hover:scale-110 transition-all duration-500 opacity-75">
+                        <i class="fab fa-react"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-6 gradient-text">Frontend</h3>
+                    <div class="space-y-3 text-lg opacity-80 font-light">
+                        <div>React 19 | Next.js 15</div>
+                        <div>Tailwind 4 | shadcn/ui</div>
+                        <div>Three.js | Framer Motion</div>
+                    </div>
+                </div>
+                <!-- Repeat for other skills -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-40 px-8 infinite-gradient">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-32 reveal" data-delay="200">
+                <h2 class="text-6xl md:text-8xl font-black mb-8 gradient-text uppercase tracking-widest">
+                    Live Projects
+                </h2>
+                <div class="w-32 h-1 mx-auto bg-gradient-to-r from-accent-1 to-accent-3 rounded-full"></div>
+            </div>
+            <!-- Project cards with hover effects -->
+        </div>
+    </section>
+
+    <!-- GitHub Collections -->
+    <section id="github" class="py-40 px-8 relative">
+        <!-- Similar structure -->
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-40 px-8">
+        <!-- Contact form with glass morphism -->
+    </section>
+
+    <script>
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Scroll Reveal
+        gsap.utils.toArray('.reveal').forEach((el, i) => {
+            gsap.fromTo(el, 
+                { opacity: 0, y: 80 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    delay: gsap.utils.toArray('.reveal').indexOf(el) * 0.1
+                }
+            );
+        });
+
+        // WebGL Particle System
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('webgl-canvas').replaceWith(renderer.domElement);
+
+        // Floating Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 500;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.01,
+            color: 0x00d4ff,
+            transparent: true,
+            opacity: 0.8
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 1.5;
+
+        function animateParticles() {
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+            renderer.render(scene, camera);
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Floating UI Particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.width = particle.style.height = Math.random() * 8 + 4 + 'px';
+            particle.style.animationDuration = Math.random() * 20 + 20 + 's';
+            document.getElementById('particles-container').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 40000);
+        }
+        setInterval(createParticle, 300);
+
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Mouse Follow Effect
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(particlesMesh.rotation, {
+                y: e.clientX / window.innerWidth * 0.5,
+                x: e.clientY / window.innerHeight * 0.5,
+                duration: 2
+            });
+        });
+    </script>
+</body>
+</html>
